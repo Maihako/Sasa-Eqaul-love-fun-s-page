@@ -1,0 +1,447 @@
+:root {
+  --black: #000;
+  --white: #fff;
+  --pink-main: #ea7084;
+  --pink-soft: #fadbe1;
+  --tab-count: 7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ===== フォント読み込み ===== */
+@font-face {
+  font-family: "kana";
+  src: url("https://files.catbox.moe/cl9o79.otf") format("opentype");
+}
+@font-face {
+  font-family: "roma";
+  src: url("https://files.catbox.moe/o84avo.TTF") format("truetype");
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.logo {
+  font-family: kana;
+}
+.panel,
+button,
+nav a {
+  font-family: roma;
+}
+
+/* ======================
+   Intro
+====================== */
+.intro {
+  position: fixed;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.08);
+  animation: introAnim 2s forwards;
+  z-index: 1000;
+}
+
+/* 讓ｪ��PC�� */
+.intro1 {
+  background-image: url("https://i.ytimg.com/vi/8VBDO8ZQyDo/maxresdefault.jpg");
+  animation-delay: 0s;
+}
+.intro2 {
+  background-image: url("https://i.ytimg.com/vi/G7KHKCj6XpQ/maxresdefault.jpg");
+  animation-delay: 2s;
+}
+.intro3 {
+  background-image: url("https://i.ytimg.com/vi/1Cy9oaBAxns/maxresdefault.jpg");
+  animation-delay: 4s;
+}
+
+/* 邵ｦ�医せ繝槭�邵ｦ�俄ｻ竭｡竭｢蜈･繧梧崛縺� */
+@media (orientation: portrait) {
+  .intro1 {
+    background-image: url("https://i.ytimg.com/vi/Ebkg62ktyIA/maxresdefault.jpg");
+  }
+  .intro2 {
+    background-image: url("https://i.ytimg.com/vi/_uRk9oEEV5E/maxresdefault.jpg");
+  }
+  .intro3 {
+    background-image: url("https://i.ytimg.com/vi/dsHbfNZeF9c/maxresdefault.jpg");
+  }
+
+  .intro {
+    background-position: center 20%;
+    transform: scale(1.02);
+  }
+}
+
+/* 繝輔ぉ繝ｼ繝峨う繝ｳ 竊� 蛛懈ｭ｢ 竊� 繝輔ぉ繝ｼ繝峨い繧ｦ繝� */
+@keyframes introAnim {
+  0% {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ======================
+   UI
+====================== */
+.ui {
+  position: relative;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+.ui.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 閭梧勹蠑輔″邯吶℃ */
+.ui-bg {
+  position: fixed;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+.ui.is-visible .ui-bg {
+  opacity: 1;
+}
+
+/* ======================
+   Header
+====================== */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 70px;
+  background: rgba(234, 112, 132, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  border-radius: 0 0 18px 18px;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 34px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  border: 2px solid var(--black);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.tab {
+  background: none;
+  border: none;
+  padding: 6px 14px;
+  cursor: pointer;
+  background: var(--white);
+}
+
+.tab.is-active {
+  background: var(--pink-soft);
+}
+
+/* Hamburger */
+.hamburger {
+  margin-left: auto;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: var(--pink-main);
+  position: relative;
+  cursor: pointer;
+}
+
+.hamburger span,
+.hamburger span::before,
+.hamburger span::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 2px;
+  background: #fff;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: 0.3s;
+}
+.hamburger span::before {
+  top: -6px;
+}
+.hamburger span::after {
+  top: 6px;
+}
+
+.hamburger.is-open span {
+  background: transparent;
+}
+.hamburger.is-open span::before {
+  top: 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.hamburger.is-open span::after {
+  top: 0;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Nav */
+.nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  max-height: 0;
+  overflow-y: auto;
+  transition: max-height 0.4s ease;
+}
+.nav.is-open {
+  max-height: 100vh;
+}
+.nav a {
+  display: block;
+  padding: 16px;
+  text-align: center;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Main */
+main {
+  margin-top: 70px;
+}
+
+.panel {
+  display: none;
+  padding: 24px;
+  background: color-mix(in srgb, var(--pink-soft), transparent 30%);
+  border-radius: 10px 10px 0 0;
+}
+.panel.is-active {
+  display: block;
+  animation: fade 0.3s ease;
+}
+.panel.is-active img {
+  width: 100%;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===== h2 装飾 ===== */
+.panel h2 {
+  font-family: roma;
+  font-size: 28px;
+  margin-bottom: 16px;
+  line-height: 1.25; /* 行の高さを少し詰める */
+  padding-left: 16px; /* ラインとの距離調整 */
+  position: relative;
+  color: #000;
+}
+
+/* 左のアクセントライン */
+.panel h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.15em; /* ← ここがズレの原因 */
+  height: 1.1em;
+  width: 6px;
+  background: var(--pink-main);
+  border-radius: 3px;
+}
+
+/* ===== 本文リンク ===== */
+.panel a {
+  display: block;
+  /* box-sizing を入れることで、paddingを含めて calc の幅に収まるようになります */
+  box-sizing: border-box;
+
+  /* 左右に5pxずつ、計10pxの余白を確保 */
+  width: calc(100% - 10px);
+  margin: 10px auto; /* autoで中央寄せ */
+
+  padding: 10px 14px;
+  font-size: 15px;
+  text-align: center;
+
+  /* 見栄えのための装飾例 */
+  text-decoration: none;
+  border: 1px solid #ccc;
+  transition: all 0.3s ease;
+  color: #000;
+  border-radius: 10px 10px 10px 10px;
+}
+
+.panel a:hover {
+  background: color-mix(in srgb, var(--pink-main), transparent 30%);
+  border-radius: 10px 10px 10px 10px;
+  color: #fff; /* 文字を白に */
+  transform: translateY(-3px); /* 3px上に浮かす */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 影をつけて立体感を出す */
+}
+
+/* ===== ナビリンク余白 ===== */
+.nav a {
+  margin: 6px 0; /* 縦に空白 */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.nav a img {
+  width: 50%;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.profile-card {
+  background: #ffffff;
+  font-family: roma;
+  width: auto;
+  padding: 24px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.profile-img {
+  object-fit: cover;
+  margin-bottom: 16px;
+}
+
+.name {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.job {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.bio {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* ======================
+   PC蠑ｷ蛹剖I
+====================== */
+@media (min-width: 901px) {
+  .logo {
+    font-size: 44px;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+  }
+
+  .tabs {
+    border-width: 3px;
+    display: flex;
+    width: 100%;
+  }
+  .tab {
+    width: calc(100% / var(--tab-count));
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 6px 8px;
+    min-height: 44px; /* ← タブの高さ */
+    text-align: center;
+
+    white-space: normal; /* 折り返しON */
+    word-break: break-word; /* 日本語・英語両対応 */
+    line-height: 1.2;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.15s;
+  }
+
+  .tab:hover {
+    transform: scale(0.95);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .tab.is-active {
+    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.25),
+      0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* ======================
+   Smartphone Responsive
+====================== */
+@media (max-width: 600px) {
+  main {
+    margin-top: 90px; /* ← 好みで 80〜100px */
+  }
+  /* ===== パネル ===== */
+  .panel {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  /* ===== h2 見出し ===== */
+  .panel h2 {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .panel h2::before {
+    width: 4px;
+    height: 1em;
+  }
+
+  /* ===== 本文リンク ===== */
+  .panel a {
+    font-size: 14px; /* 小さい画面で文字を少し調整 */
+    padding: 12px 10px; /* タップしやすいよう上下を広げる */
+  }
+
+  /* ===== ナビ ===== */
+  .nav a {
+    padding: 14px;
+    font-size: 15px;
+  }
+}
