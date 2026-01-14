@@ -13,11 +13,11 @@
 /* ===== フォント読み込み ===== */
 @font-face {
   font-family: "kana";
-  src: url("https://files.catbox.moe/cl9o79.otf") format("opentype");
+  src: url("https://files.catbox.moe/cl9o79.otf") format("woff2");
 }
 @font-face {
   font-family: "roma";
-  src: url("https://files.catbox.moe/o84avo.TTF") format("truetype");
+  src: url("https://files.catbox.moe/o84avo.TTF") format("woff2");
 }
 
 body {
