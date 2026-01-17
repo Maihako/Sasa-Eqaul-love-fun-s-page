@@ -258,7 +258,7 @@ main {
 }
 .panel.is-active img {
   width: 100%;
-  opacity: 0.5; /* 50%透明 */
+  opacity: 0.3; /* 30%透明 */
 }
 
 @keyframes fade {
